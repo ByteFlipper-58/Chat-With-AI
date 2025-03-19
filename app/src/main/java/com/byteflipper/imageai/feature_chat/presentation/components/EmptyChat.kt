@@ -1,4 +1,4 @@
-package com.byteflipper.imageai.presentation.chat.components
+package com.byteflipper.imageai.feature_chat.presentation.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

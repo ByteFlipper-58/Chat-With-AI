@@ -1,4 +1,4 @@
-package com.byteflipper.imageai.data.chat
+package com.byteflipper.imageai.feature_chat.data
 
 import android.graphics.Bitmap
 import java.util.UUID

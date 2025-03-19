@@ -1,4 +1,4 @@
-package com.byteflipper.imageai
+package com.byteflipper.imageai.core.model
 
 /**
  * A sealed hierarchy describing the state of the text generation.

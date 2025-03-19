@@ -8,10 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.byteflipper.imageai.ui.components.ChatScreen
-import com.byteflipper.imageai.ui.theme.ImageAITheme
-import com.byteflipper.imageai.viewmodel.ChatViewModel
+import com.byteflipper.imageai.core.theme.ImageAITheme
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)

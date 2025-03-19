@@ -1,6 +1,5 @@
-package com.byteflipper.imageai.ui.theme
+package com.byteflipper.imageai.core.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

@@ -3,8 +3,8 @@ package com.byteflipper.imageai.ui.components
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.byteflipper.imageai.presentation.chat.ChatScaffold
-import com.byteflipper.imageai.viewmodel.ChatViewModel
+import com.byteflipper.imageai.feature_chat.presentation.components.ChatScaffold
+import com.byteflipper.imageai.feature_chat.presentation.ChatViewModel
 
 @Composable
 fun ChatScreen(

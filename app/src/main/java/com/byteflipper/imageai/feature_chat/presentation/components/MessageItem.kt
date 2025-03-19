@@ -1,4 +1,4 @@
-package com.byteflipper.imageai.presentation.chat.components
+package com.byteflipper.imageai.feature_chat.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.unit.dp
-import com.byteflipper.imageai.data.chat.ChatMessage
+import com.byteflipper.imageai.feature_chat.data.ChatMessage
 
 @Composable
 fun MessageItem(message: ChatMessage) {

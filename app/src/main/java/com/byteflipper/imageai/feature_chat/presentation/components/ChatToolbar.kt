@@ -1,4 +1,4 @@
-package com.byteflipper.imageai.presentation.chat
+package com.byteflipper.imageai.feature_chat.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row

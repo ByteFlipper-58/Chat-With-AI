@@ -1,4 +1,4 @@
-package com.byteflipper.imageai.ui.theme
+package com.byteflipper.imageai.core.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -1,11 +1,11 @@
-package com.byteflipper.imageai.viewmodel
+package com.byteflipper.imageai.feature_chat.presentation
 
 import android.graphics.Bitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.byteflipper.imageai.BuildConfig
-import com.byteflipper.imageai.UiState
-import com.byteflipper.imageai.data.chat.ChatMessage
+import com.byteflipper.imageai.core.model.UiState
+import com.byteflipper.imageai.feature_chat.data.ChatMessage
 import com.google.ai.client.generativeai.GenerativeModel
 import com.google.ai.client.generativeai.type.content
 import kotlinx.coroutines.Dispatchers
@@ -28,10 +28,12 @@ class ChatViewModel : ViewModel() {
 
     fun sendTextMessage(text: String) {
         // Add user message
-        addMessage(ChatMessage(
-            text = text,
-            isFromUser = true
-        ))
+        addMessage(
+            ChatMessage(
+                text = text,
+                isFromUser = true
+            )
+        )
 
         // Show loading state
         _uiState.value = UiState.Loading
@@ -47,31 +49,37 @@ class ChatViewModel : ViewModel() {
 
                 response.text?.let { outputContent ->
                     // Add AI response
-                    addMessage(ChatMessage(
-                        text = outputContent,
-                        isFromUser = false
-                    ))
+                    addMessage(
+                        ChatMessage(
+                            text = outputContent,
+                            isFromUser = false
+                        )
+                    )
                     _uiState.value = UiState.Success(outputContent)
                 }
             } catch (e: Exception) {
                 _uiState.value = UiState.Error(e.localizedMessage ?: "Error processing request")
 
                 // Add error message
-                addMessage(ChatMessage(
-                    text = "Sorry, I couldn't process that request: ${e.localizedMessage ?: "Unknown error"}",
-                    isFromUser = false
-                ))
+                addMessage(
+                    ChatMessage(
+                        text = "Sorry, I couldn't process that request: ${e.localizedMessage ?: "Unknown error"}",
+                        isFromUser = false
+                    )
+                )
             }
         }
     }
 
     fun sendImageMessage(bitmap: Bitmap, prompt: String) {
         // Add user message with image
-        addMessage(ChatMessage(
-            text = prompt,
-            image = bitmap,
-            isFromUser = true
-        ))
+        addMessage(
+            ChatMessage(
+                text = prompt,
+                image = bitmap,
+                isFromUser = true
+            )
+        )
 
         // Show loading state
         _uiState.value = UiState.Loading
@@ -87,20 +95,24 @@ class ChatViewModel : ViewModel() {
 
                 response.text?.let { outputContent ->
                     // Add AI response
-                    addMessage(ChatMessage(
-                        text = outputContent,
-                        isFromUser = false
-                    ))
+                    addMessage(
+                        ChatMessage(
+                            text = outputContent,
+                            isFromUser = false
+                        )
+                    )
                     _uiState.value = UiState.Success(outputContent)
                 }
             } catch (e: Exception) {
                 _uiState.value = UiState.Error(e.localizedMessage ?: "Error processing image")
 
                 // Add error message
-                addMessage(ChatMessage(
-                    text = "Sorry, I couldn't process that image: ${e.localizedMessage ?: "Unknown error"}",
-                    isFromUser = false
-                ))
+                addMessage(
+                    ChatMessage(
+                        text = "Sorry, I couldn't process that image: ${e.localizedMessage ?: "Unknown error"}",
+                        isFromUser = false
+                    )
+                )
             }
         }
     }
