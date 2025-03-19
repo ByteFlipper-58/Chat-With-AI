@@ -53,6 +53,11 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.generativeai)
+
+    implementation("com.google.accompanist:accompanist-insets:0.31.4-beta")
+    implementation("com.google.accompanist:accompanist-insets-ui:0.31.4-beta")
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.31.4-beta")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

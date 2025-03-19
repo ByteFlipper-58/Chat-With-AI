@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.ui.Modifier
-import com.byteflipper.imageai.ui.components.ChatScreen
+import com.byteflipper.imageai.feature_chat.presentation.ChatScreen
 import com.byteflipper.imageai.core.theme.ImageAITheme
 
 class MainActivity : ComponentActivity() {
@@ -18,11 +18,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ImageAITheme {
-                Scaffold()
-                { paddingValues ->
+                Scaffold { paddingValues ->
                     Surface(
                         modifier = Modifier.fillMaxSize(),
-                        color = MaterialTheme.colorScheme.background,
+                        color = MaterialTheme.colorScheme.background
                     ) {
                         ChatScreen(modifier = Modifier.padding(paddingValues))
                     }

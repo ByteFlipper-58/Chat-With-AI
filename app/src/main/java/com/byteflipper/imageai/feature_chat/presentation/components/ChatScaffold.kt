@@ -1,20 +1,20 @@
 package com.byteflipper.imageai.feature_chat.presentation.components
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.platform.LocalView
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.byteflipper.imageai.core.model.UiState
 import com.byteflipper.imageai.feature_chat.presentation.ChatViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun ChatScaffold(
@@ -28,22 +28,21 @@ fun ChatScaffold(
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
-            ChatToolbar(title = title) // Тулбар фиксированный
+            ChatToolbar(title = title)
         }
     ) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues) // Учитываем отступы Scaffold
+                .padding(top = paddingValues.calculateTopPadding())
         ) {
             Box(
                 modifier = Modifier
-                    .weight(1f) // Контент занимает всё пространство
-                    .fillMaxSize(),
-                contentAlignment = Alignment.Center
+                    .weight(1f)
+                    .fillMaxWidth()
             ) {
                 if (messages.isEmpty()) {
-                    EmptyChat() // Теперь в центре экрана
+                    EmptyChat()
                 } else {
                     MessageList(
                         messages = messages,
@@ -56,7 +55,11 @@ fun ChatScaffold(
                 onSendMessage = { message ->
                     chatViewModel.sendTextMessage(message)
                 },
-                onAttachImage = { /* TODO: Добавить обработку */ }
+                onAttachImage = { /* TODO: Добавить обработку */ },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .navigationBarsPadding()
+                    .imePadding()
             )
         }
     }

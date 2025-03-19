@@ -1,5 +1,6 @@
 package com.byteflipper.imageai.feature_chat.presentation.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,7 +19,8 @@ fun MessageList(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 16.dp),
-        reverseLayout = false
+        reverseLayout = false,
+        verticalArrangement = Arrangement.Top
     ) {
         items(messages) { message ->
             MessageItem(message)
