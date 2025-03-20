@@ -8,10 +8,12 @@ import com.byteflipper.imageai.core.model.UiState
 import com.byteflipper.imageai.feature_chat.data.ChatMessage
 import com.google.ai.client.generativeai.GenerativeModel
 import com.google.ai.client.generativeai.type.content
+import com.google.ai.client.generativeai.type.generationConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class ChatViewModel : ViewModel() {
@@ -23,101 +25,69 @@ class ChatViewModel : ViewModel() {
 
     private val generativeModel = GenerativeModel(
         modelName = "gemini-1.5-flash",
-        apiKey = BuildConfig.apiKey
+        apiKey = BuildConfig.apiKey,
+        generationConfig = generationConfig {
+            temperature = 0.8f
+            topK = 40
+            topP = 0.95f
+            maxOutputTokens = 300
+        }
     )
 
     fun sendTextMessage(text: String) {
-        // Add user message
-        addMessage(
-            ChatMessage(
-                text = text,
-                isFromUser = true
-            )
-        )
-
-        // Show loading state
+        addMessage(ChatMessage(text = text, isFromUser = true))
         _uiState.value = UiState.Loading
 
-        // Send to Gemini
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val response = generativeModel.generateContent(
-                    content {
-                        text(text)
-                    }
-                )
-
-                response.text?.let { outputContent ->
-                    // Add AI response
-                    addMessage(
-                        ChatMessage(
-                            text = outputContent,
-                            isFromUser = false
-                        )
-                    )
-                    _uiState.value = UiState.Success(outputContent)
+                var fullResponse = ""
+                generativeModel.generateContentStream(content { text(text) }).collect { chunk ->
+                    fullResponse += chunk.text
+                    _uiState.value = UiState.Success(fullResponse)
+                    updateLastMessage(fullResponse)
                 }
             } catch (e: Exception) {
                 _uiState.value = UiState.Error(e.localizedMessage ?: "Error processing request")
-
-                // Add error message
-                addMessage(
-                    ChatMessage(
-                        text = "Sorry, I couldn't process that request: ${e.localizedMessage ?: "Unknown error"}",
-                        isFromUser = false
-                    )
-                )
+                addMessage(ChatMessage(text = "Sorry, an error occurred: ${e.localizedMessage}", isFromUser = false))
             }
         }
     }
 
     fun sendImageMessage(bitmap: Bitmap, prompt: String) {
-        // Add user message with image
-        addMessage(
-            ChatMessage(
-                text = prompt,
-                image = bitmap,
-                isFromUser = true
-            )
-        )
-
-        // Show loading state
+        addMessage(ChatMessage(text = prompt, image = bitmap, isFromUser = true))
         _uiState.value = UiState.Loading
 
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val response = generativeModel.generateContent(
+                var fullResponse = ""
+                generativeModel.generateContentStream(
                     content {
                         image(bitmap)
                         text(prompt)
                     }
-                )
-
-                response.text?.let { outputContent ->
-                    // Add AI response
-                    addMessage(
-                        ChatMessage(
-                            text = outputContent,
-                            isFromUser = false
-                        )
-                    )
-                    _uiState.value = UiState.Success(outputContent)
+                ).collect { chunk ->
+                    fullResponse += chunk.text
+                    _uiState.value = UiState.Success(fullResponse)
+                    updateLastMessage(fullResponse)
                 }
             } catch (e: Exception) {
                 _uiState.value = UiState.Error(e.localizedMessage ?: "Error processing image")
-
-                // Add error message
-                addMessage(
-                    ChatMessage(
-                        text = "Sorry, I couldn't process that image: ${e.localizedMessage ?: "Unknown error"}",
-                        isFromUser = false
-                    )
-                )
+                addMessage(ChatMessage(text = "Sorry, an error occurred: ${e.localizedMessage}", isFromUser = false))
             }
         }
     }
 
     private fun addMessage(message: ChatMessage) {
         _messages.value = _messages.value + message
+    }
+
+    private fun updateLastMessage(newText: String) {
+        val updatedMessages = _messages.value.toMutableList()
+        if (updatedMessages.isNotEmpty() && !updatedMessages.last().isFromUser) {
+            updatedMessages[updatedMessages.lastIndex] = updatedMessages.last().copy(text = newText)
+            _messages.value = updatedMessages
+        } else {
+            addMessage(ChatMessage(text = newText, isFromUser = false))
+        }
     }
 }
