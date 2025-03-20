@@ -18,7 +18,7 @@ fun MessageList(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 16.dp),
+            .padding(horizontal = 8.dp, vertical = 8.dp),
         reverseLayout = false,
         verticalArrangement = Arrangement.Top
     ) {

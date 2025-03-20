@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun ChatToolbar(title: String) {
     Surface(
-        color = MaterialTheme.colorScheme.surface,
+        color = MaterialTheme.colorScheme.background,
         tonalElevation = 3.dp
     ) {
         Row(
