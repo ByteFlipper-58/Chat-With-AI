@@ -2,6 +2,14 @@ package com.byteflipper.imageai.feature_chat.presentation.components
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.togetherWith
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.ContentTransform
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -93,10 +101,18 @@ fun MessageItem(message: ChatMessage) {
                                 .clip(RoundedCornerShape(8.dp))
                         )
                     }
-                    Text(
-                        text = message.text,
-                        style = MaterialTheme.typography.bodyMedium
-                    )
+                    AnimatedContent(
+                        targetState = message.text,
+                        transitionSpec = {
+                            fadeIn(animationSpec = tween(durationMillis = 300)) togetherWith
+                                    fadeOut(animationSpec = tween(durationMillis = 150))
+                        }, label = "text_animation"
+                    ) { targetText ->
+                        Text(
+                            text = targetText,
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                    }
                 }
             }
         }
