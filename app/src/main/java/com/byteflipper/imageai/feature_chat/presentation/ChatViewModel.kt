@@ -30,7 +30,7 @@ class ChatViewModel : ViewModel() {
             temperature = 0.8f
             topK = 40
             topP = 0.95f
-            maxOutputTokens = 300
+            maxOutputTokens = 8000
         }
     )
 
