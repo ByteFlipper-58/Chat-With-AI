@@ -63,9 +63,9 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation("androidx.compose.material3:material3-window-size-class:1.1.2")
-    implementation("androidx.compose.animation:animation:1.5.4")
-    implementation("androidx.compose.animation:animation-graphics:1.5.4")
+    implementation("androidx.compose.material3:material3-window-size-class:1.3.2")
+    implementation("androidx.compose.animation:animation:1.8.2")
+    implementation("androidx.compose.animation:animation-graphics:1.8.2")
     
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.7.5")
@@ -77,16 +77,16 @@ dependencies {
     kapt("androidx.room:room-compiler:2.6.1")
     
     // Hilt Dependency Injection
-    implementation("com.google.dagger:hilt-android:2.48.1")
-    kapt("com.google.dagger:hilt-compiler:2.48.1")
+    implementation("com.google.dagger:hilt-android:2.55")
+    kapt("com.google.dagger:hilt-compiler:2.56.2")
     
     // Networking
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
     
     // DataStore для настроек
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation("androidx.datastore:datastore-preferences:1.1.7")
     
     // AI Libraries
     implementation(libs.generativeai)
@@ -95,14 +95,14 @@ dependencies {
     implementation("com.google.accompanist:accompanist-insets:0.31.4-beta")
     implementation("com.google.accompanist:accompanist-insets-ui:0.31.4-beta")
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.31.4-beta")
-    implementation("com.google.accompanist:accompanist-permissions:0.31.4-beta")
+    implementation("com.google.accompanist:accompanist-permissions:0.37.3")
     implementation("com.airbnb.android:lottie-compose:6.1.0")
     
     // Image Loading
-    implementation("io.coil-kt:coil-compose:2.5.0")
+    implementation("io.coil-kt:coil-compose:2.7.0")
     
     // Date and Time
-    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.2")
     
     // Testing
     testImplementation(libs.junit)
